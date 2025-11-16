@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Чек</title>
+</head>
+<body>
+
+<h2>Чек магазину</h2>
+<pre id="output"></pre>
+
+<script>
+const check = [
+    { name: "Молоко", qty: 2, price: 38 },
+    { name: "Хліб",   qty: 1, price: 25 },
+    { name: "Яблука", qty: 3, price: 15 },
+    { name: "Сир",    qty: 1, price: 120 }
+];
+
+function printCheck() {
+    let text = "ЧЕК:\n";
+    check.forEach(item => {
+        text += `${item.name} — ${item.qty} шт × ${item.price} грн = ${item.qty * item.price} грн\n`;
+    });
+    return text;
+}
+
+function totalSum() {
+    return check.reduce((sum, item) => sum + item.qty * item.price, 0);
+}
+
+function mostExpensive() {
+    return check.reduce((max, item) =>
+        (item.price > max.price ? item : max)
+    );
+}
+
+function averagePrice() {
+    return totalSum() / check.length;
+}
+
+document.getElementById("output").textContent =
+    printCheck() +
+    "\nЗагальна сума: " + totalSum() + " грн" +
+    "\nНайдорожчий товар: " + mostExpensive().name +
+    "\nСередня ціна товару: " + averagePrice().toFixed(2) + " грн";
+</script>
+
+</body>
+</html>
